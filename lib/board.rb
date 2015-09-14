@@ -1,0 +1,150 @@
+require_relative 'ship'
+require_relative 'pending_coords'
+include PendingNewShipCoords
+
+class Board
+
+  attr_reader :size, :ships
+
+  def initialize(size=10)
+    @size = size
+    @ships = []
+  end
+
+  def new_coords(ship,coords,orientation)
+    pending_coords(ship.size,coords,orientation)
+  end
+
+  def outside?(new_ship_coords)
+    new_ship_coords.flatten.max > size || new_ship_coords.flatten.min < 1
+  end
+
+  def overlap?(new_ship_coords)
+    ship_coords & new_ship_coords != []
+  end
+
+  def place_ship(ship,coords,orientation)
+    new_ship_coords = pending_coords(ship.size,coords,orientation)
+    fail 'out of bounds' if outside?(new_ship_coords)
+    fail 'overlapping' if overlap?(new_ship_coords)
+    ship.update_ship_coords(new_ship_coords)
+    ships << ship
+  end
+
+  def ship_coords
+    @ship_coords = []
+    @ships.each{|ship|ship.body.each{|part| @ship_coords << part[:coords]}}
+    @ship_coords
+  end
+
+  def fire_missile(coords)
+    fail 'outside range' if outside?(coords)
+    fail 'already fired' if (hits + misses).include?(coords)
+    ships.each{|ship| return ship.hit!(coords) if ship.hit?(coords)}
+    @misses << coords
+  end
+
+  def hits
+    @hits = []
+    @ships.each{|sp| sp.body.each{|pt| @hits << pt[:coords] if pt[:hit]}}
+    @hits
+  end
+
+  def misses
+    @misses ||= []
+    @misses
+  end
+
+  def ocean
+    @ocean =[]
+    (1..size).each{|x| (1..size).each{|y| @ocean << [x,y]}}
+    @ocean = @ocean - ship_coords - misses
+  end
+
+  def good_ship_parts
+    @good_ship_parts = ship_coords - hits
+  end
+
+  def loose?
+    ships.collect{|ship| ship.sunk?}.all?
+  end
+
+end
+
+
+
+def scenario1
+  board = Board.new(4)
+  ship1 = Ship.new(3)
+  ship2 = Ship.new(2)
+  board.place_ship(ship1,[1,1],'south')
+  board.place_ship(ship2,[1,2],'south')
+  board.fire_missile([1,1])
+  board.fire_missile([2,1])
+  board.fire_missile([3,1])
+  board.fire_missile([3,2])
+  board.fire_missile([1,2])
+  p board.hits
+  p board.misses
+  p board.good_ship_parts
+  p board.ocean
+end
+
+scenario1
+#
+# board = Board.new(4)
+# ship = Ship.new(3)
+# board.ocean
+# board.place_ship(ship,[1,2],'south')
+# p board.ship_coords
+# p board.ships
+
+
+
+
+
+
+
+
+  #
+  # def show_my_board
+  #   ship_not_hit = ship_coords - @hits  #returns just the parts of ship not hit - ie removes the hits!
+  #   (0...size).each do |x| #for every row
+  #     print '[ ' # create a start of the row
+  #     (0...size).each do |y| # for each cell on each row
+  #       current_coord = [x, y] # set coord to current_coord
+  #       if @hits.include?(current_coord) #does the hits array contain the current_coord
+  #         print 'Hit        ' #if it does print this
+  #       elsif @misses.include?(current_coord)
+  #         print 'Miss       '
+  #       elsif ship_not_hit.include?(current_coord)
+  #         print 'Ship       '
+  #       elsif @ocean.include?(current_coord)
+  #         print 'Ocean      '
+  #       end
+  #     end
+  #     print ']'
+  #     puts ''
+  #   end
+  # end
+  #
+  # def show_opponent_board
+  #   ship_not_hit = ship_coords - @hits
+  #   blank = ocean + ship_not_hit
+  #
+  #   (0...size).each do |x|
+  #     print '[ '
+  #     (0...size).each do |y|
+  #       current_coord = [x, y]
+  #       if @hits.include?(current_coord)
+  #         print 'Hit        '
+  #       elsif @misses.include?(current_coord)
+  #         print 'Miss       '
+  #       elsif blank.include?(current_coord)
+  #         print 'Ocean      '
+  #       end
+  #     end
+  #     print ']'
+  #     puts ''
+  #   end
+  # end
