@@ -8,6 +8,8 @@ module PendingNewShipCoords
     pending_ship_coords
   end
 
+  private
+
   def next_coords(prev_coords,orientation)
     case orientation
       when 'north' then [prev_coords[0]-1,prev_coords[1]]

@@ -1,6 +1,13 @@
 require 'board'
 
 describe Board do
+
+  ship1 = double(:ship)
+  board1 = Board.new
+  allow(ship1).to receive(:size).and_return(2)
+  allow(ship1).to receive(:body).and_return([{:grid_coords => []},{:grid_coords => []}])
+
+
   describe '#initialize/new' do
     it 'when created has a default size of 10' do
       expect(subject.size).to eql(10)
@@ -8,6 +15,10 @@ describe Board do
     it 'when created has a default empty ships array' do
       expect(subject.ships).to eql([])
     end
+  end
+
+  describe '#new_coords'
+
   end
   #
   # describe '#new_ship_coords' do
@@ -46,10 +57,7 @@ describe Board do
   #
   # describe '#place_ship' do
   #   it 'appends a ship to the ships array on the board' do
-  #     ship1 = double(:ship)
-  #     board1 = Board.new
-  #     allow(ship1).to receive(:size).and_return(2)
-  #     allow(ship1).to receive(:body).and_return([{:grid_coords => []},{:grid_coords => []}])
+
   #     board1.place_ship(ship1,2,3,'south')
   #     expect(board1.ships.first).to eql(ship1)
   #   end
