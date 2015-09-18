@@ -1,4 +1,4 @@
-require_relative 'ship'
+# require_relative 'ship'
 require_relative 'pending_coords'
 include PendingNewShipCoords
 
@@ -72,25 +72,25 @@ class Board
 end
 
 
-
-def scenario1
-  board = Board.new(4)
-  ship1 = Ship.new(3)
-  ship2 = Ship.new(2)
-  board.place_ship(ship1,[1,1],'south')
-  board.place_ship(ship2,[1,2],'south')
-  board.fire_missile([1,1])
-  board.fire_missile([2,1])
-  board.fire_missile([3,1])
-  board.fire_missile([3,2])
-  board.fire_missile([1,2])
-  p board.hits
-  p board.misses
-  p board.good_ship_parts
-  p board.ocean
-end
-
-scenario1
+# 
+# def scenario1
+#   board = Board.new(4)
+#   ship1 = Ship.new(3)
+#   ship2 = Ship.new(2)
+#   board.place_ship(ship1,[1,1],'south')
+#   board.place_ship(ship2,[1,2],'south')
+#   board.fire_missile([1,1])
+#   board.fire_missile([2,1])
+#   board.fire_missile([3,1])
+#   board.fire_missile([3,2])
+#   board.fire_missile([1,2])
+#   p board.hits
+#   p board.misses
+#   p board.good_ship_parts
+#   p board.ocean
+# end
+#
+# scenario1
 #
 # board = Board.new(4)
 # ship = Ship.new(3)

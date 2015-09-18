@@ -2,13 +2,6 @@ require 'ship'
 
 describe Ship do
 
-  def ship_with_coords
-    ship = Ship.new(3)
-    ship_coords = [[2,3],[3,3],[4,3]]
-    ship.update_ship_coords(ship_coords)
-    ship
-  end
-
   describe '#size' do
     it {expect(subject).to respond_to(:size).with(0).argument}
   end
@@ -37,8 +30,9 @@ describe Ship do
 
   describe "#update_ship_coords" do
     it 'updates ship coordinates with those passed to it' do
-      ship = ship_with_coords
-      new_ship_coords = [[2,3],[3,3],[4,3]]
+      ship = Ship.new(3)
+      new_ship_coords = [[1,2],[1,3],[1,4]]
+      ship.update_ship_coords(new_ship_coords)
       (0...ship.size).each do |i|
         expect(ship.body[i][:coords]).to eql(new_ship_coords[i])
       end
@@ -46,41 +40,47 @@ describe Ship do
   end
 
   describe "#hit?" do
+    ship = Ship.new(3)
+    ship_coords = [[2,3],[3,3],[4,3]]
+    ship.update_ship_coords(ship_coords)
 
     it 'correctly return true when a ship has been hit' do
-      ship = ship_with_coords
       expect(ship.hit?([3,3])).to eq(true)
     end
 
     it 'correctly returns false when a ship has not been hit' do
-      ship = ship_with_coords
       expect(ship.hit?([5,2])).to eq(false)
     end
   end
 
   describe "#hit!" do
     it 'updates hit status to true when a part of the ship is hit' do
-      ship = ship_with_coords
+      ship = Ship.new(3)
+      ship_coords = [[2,3],[3,3],[4,3]]
+      ship.update_ship_coords(ship_coords)
       ship.hit!([4,3])
       expect(ship.body[2][:hit]).to eq(true)
     end
   end
 
   describe "#sunk?" do
-
-    it 'returns false when not all parts of a ship are hit' do
-      ship = ship_with_coords
-      ship.hit!([2,3])
-      ship.hit!([3,3])
-      expect(ship.sunk?).to eq(false)
-    end
-
     it 'returns true when all parts of a ship are hit' do
-      ship = ship_with_coords
+      ship = Ship.new(3)
+      ship_coords = [[2,3],[3,3],[4,3]]
+      ship.update_ship_coords(ship_coords)
       ship.hit!([2,3])
       ship.hit!([3,3])
       ship.hit!([4,3])
       expect(ship.sunk?).to eq(true)
+    end
+
+    it 'returns false when not all parts of a ship are hit' do
+      ship = Ship.new(3)
+      ship_coords = [[2,3],[3,3],[4,3]]
+      ship.update_ship_coords(ship_coords)
+      ship.hit!([2,3])
+      ship.hit!([3,3])
+      expect(ship.sunk?).to eq(false)
     end
   end
 

@@ -1,25 +1,44 @@
 require 'board'
 
+
 describe Board do
-
-  ship1 = double(:ship)
-  board1 = Board.new
-  allow(ship1).to receive(:size).and_return(2)
-  allow(ship1).to receive(:body).and_return([{:grid_coords => []},{:grid_coords => []}])
-
-
-  describe '#initialize/new' do
-    it 'when created has a default size of 10' do
-      expect(subject.size).to eql(10)
+  describe "#initialize/new" do
+    it 'initialize with default size of 10' do
+      expect(subject.size).to eq(10)
     end
-    it 'when created has a default empty ships array' do
-      expect(subject.ships).to eql([])
+
+    it 'initialize with empty ships array container' do
+      expect(subject.ships).to eq([])
     end
   end
 
-  describe '#new_coords'
-
+  describe "#new_coords" do
+    it 'returns pending ship coordinates based on new ship position' do
+      ship = double(:fake_ship)
+      pending_coords = subject.new_coords(ship,[1,2],'east')
+    end
   end
+
+end
+#
+#   ship1 = double(:ship)
+#   board1 = Board.new
+#   allow(ship1).to receive(:size).and_return(2)
+#   allow(ship1).to receive(:body).and_return([{:grid_coords => []},{:grid_coords => []}])
+#
+#
+#   describe '#initialize/new' do
+#     it 'when created has a default size of 10' do
+#       expect(subject.size).to eql(10)
+#     end
+#     it 'when created has a default empty ships array' do
+#       expect(subject.ships).to eql([])
+#     end
+#   end
+#
+#   describe '#new_coords'
+#
+#   end
   #
   # describe '#new_ship_coords' do
   #   it 'returns the correct coords when orientation is south' do
@@ -121,4 +140,4 @@ describe Board do
   #   end
   # end
 
-end
+# end

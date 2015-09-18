@@ -1,13 +1,13 @@
 require 'pending_coords'
 include PendingNewShipCoords
 
-class DummyClass
+class TestPendingCoordModuleDummyClass
 end
 
-describe DummyClass do
+describe TestPendingCoordModuleDummyClass do
 
   before(:each) do
-    @dummy_class = DummyClass.new
+    @dummy_class = TestPendingCoordModuleDummyClass.new
     @dummy_class.extend(PendingNewShipCoords)
   end
 
