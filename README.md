@@ -19,4 +19,5 @@ The aim of this project is to build an extended version of the classic board gam
 # Immediate To do
 =======
 * Complete testing suite for the board and ship class
-* Add utility gems: hound, Travis CI, Coveralls, Robocope to the project.
+* Add utility gems: hound, Travis CI, Coveralls, Robocop to the project.
+* Add Human player and Computer player classes and associated tests.
