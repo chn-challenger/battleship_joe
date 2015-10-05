@@ -1,4 +1,4 @@
-require 'pending_coords'
+require './app/lib/pending_coords'
 include PendingNewShipCoords
 
 class TestPendingCoordModuleDummyClass

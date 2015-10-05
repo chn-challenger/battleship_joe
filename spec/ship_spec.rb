@@ -1,4 +1,4 @@
-require 'ship'
+require './app/lib/ship'
 
 describe Ship do
 
