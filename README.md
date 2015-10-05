@@ -4,7 +4,7 @@ The aim of this project is to build an extended version of the classic board gam
 * Ships with width of more than 1 square.
 * large game boards where both player's ships can be placed on either side.
 * Firing more than one shot per turn.
-* Both players pends moves, and then simultaneous fire (the game could but not very likely end in a draw).
+* Both players pends moves, and then simultaneous firing (the game could but not very likely end in a draw).
 * Weapons stored on ships, so that as ships sink, less shots are available per turn.
 * One time available missile type weapons, limited number optional firing per turn, e.g. cruise missiles, nuclear missiles - which can cause detonation of stored nuclear missile on enemy ships.
 * Graphical user interface - able to place ship with mouse drag, able to fire with mouse click.
@@ -19,5 +19,5 @@ The aim of this project is to build an extended version of the classic board gam
 # Immediate To do
 =======
 * Complete testing suite for the board and ship class
-* Add utility gems: hound, Travis CI, Coveralls, Robocop to the project.
+* Add utility gems: hound, Travis CI, Coveralls to the project.
 * Add Human player and Computer player classes and associated tests.

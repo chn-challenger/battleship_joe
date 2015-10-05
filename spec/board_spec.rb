@@ -2,22 +2,89 @@ require 'board'
 
 
 describe Board do
+
+  before(:each) do
+    @ship1 = double(:fake_ship1, size: 4, update_ship_coords: true)
+    allow(@ship1).to receive(:body).and_return([{coords:[1,1],hit:false},
+      {coords:[1,2],hit:false},{coords:[1,3],hit:true},{coords:[1,4],hit:true}])
+    @ship2 = double(:fake_ship1, size: 3, update_ship_coords: true)
+    allow(@ship2).to receive(:body).and_return([{coords:[3,3],hit:false},
+      {coords:[4,3],hit:true},{coords:[5,3],hit:false}])
+    @brd = Board.new
+  end
+
   describe "#initialize/new" do
     it 'initialize with default size of 10' do
-      expect(subject.size).to eq(10)
+      expect(@brd.size).to eq(10)
     end
 
     it 'initialize with empty ships array container' do
-      expect(subject.ships).to eq([])
+      expect(@brd.ships).to eq([])
     end
   end
 
-  describe "#new_coords" do
-    it 'returns pending ship coordinates based on new ship position' do
-      ship = double(:fake_ship)
-      pending_coords = subject.new_coords(ship,[1,2],'east')
+  # describe "#new_coords" do
+  #   it 'returns pending ship coordinates based on new ship position' do
+  #     ship = double(:fake_ship, size: 3)
+  #     pending_coords = subject.new_coords(ship,[1,2],'east')
+  #     expect(pending_coords).to eq([[1, 2], [1, 3],[1, 4]])
+  #   end
+  #
+  #   it 'returns pending ship coordinates even if errorness positions given' do
+  #     ship = double(:fake_ship, size: 4)
+  #     pending_coords = subject.new_coords(ship,[1,2],'west')
+  #     expect(pending_coords).to eq([[1, 2], [1, 1], [1, 0], [1, -1]])
+  #   end
+  # end
+
+  describe "#place_ship" do
+    it 'raise error when trying to place a ship out of board range' do
+      expect{@brd.place_ship(@ship1,[1,0],'north')}.to raise_error "out of bounds"
+    end
+
+    it 'raises error when trying to place a ship overlapping existing ships' do
+      allow(@brd).to receive(:ship_coords).and_return([[1,1],[1,2],[1,3]])
+      expect{@brd.place_ship(@ship1,[1,1],'south')}. to raise_error "overlapping"
+    end
+
+    it 'on valid placement of a ship, ship is placed on the board' do
+      @brd.place_ship(@ship1,[1,1],'east')
+      expect(@brd.ships).to eq([@ship1])
+    end
+
+    it 'on valid placement of two ships, ships are placed on the board' do
+      @brd.place_ship(@ship1,[1,1],'east')
+      @brd.place_ship(@ship2,[3,3],'south')
+      expect(@brd.ships).to eq([@ship1,@ship2])
     end
   end
+
+  describe "#ship_coords" do
+    it 'populates the ship_coords array with coords of one ship' do
+      @brd.place_ship(@ship1,[1,1],'east')
+      expect(@brd.ship_coords).to eq([[1,1],[1,2],[1,3],[1,4]])
+    end
+
+    it 'populates the ship_coords array with coords of two ships' do
+      @brd.place_ship(@ship1,[1,1],'east')
+      @brd.place_ship(@ship2,[3,3],'south')
+      expect(@brd.ship_coords).to eq([[1,1],[1,2],[1,3],[1,4],[3,3],[4,3],
+        [5,3]])
+    end
+  end
+
+  describe "#hits" do
+    it 'populates the hits array with coords of hits on ship parts' do
+      @brd.place_ship(@ship1,[1,1],'east')
+      @brd.place_ship(@ship2,[3,3],'south')
+      expect(@brd.hits).to eq([[1, 3], [1, 4], [4, 3]])
+    end
+  end
+
+  describe "#fire_missile" do
+    
+  end
+
 
 end
 #

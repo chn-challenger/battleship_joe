@@ -1,4 +1,3 @@
-# require_relative 'ship'
 require_relative 'pending_coords'
 include PendingNewShipCoords
 
@@ -11,22 +10,9 @@ class Board
     @ships = []
   end
 
-  def new_coords(ship,coords,orientation)
-    pending_coords(ship.size,coords,orientation)
-  end
-
-  def outside?(new_ship_coords)
-    new_ship_coords.flatten.max > size || new_ship_coords.flatten.min < 1
-  end
-
-  def overlap?(new_ship_coords)
-    ship_coords & new_ship_coords != []
-  end
-
   def place_ship(ship,coords,orientation)
     new_ship_coords = pending_coords(ship.size,coords,orientation)
-    fail 'out of bounds' if outside?(new_ship_coords)
-    fail 'overlapping' if overlap?(new_ship_coords)
+    placement_validation(new_ship_coords)
     ship.update_ship_coords(new_ship_coords)
     ships << ship
   end
@@ -37,17 +23,17 @@ class Board
     @ship_coords
   end
 
-  def fire_missile(coords)
-    fail 'outside range' if outside?(coords)
-    fail 'already fired' if (hits + misses).include?(coords)
-    ships.each{|ship| return ship.hit!(coords) if ship.hit?(coords)}
-    @misses << coords
-  end
-
   def hits
     @hits = []
     @ships.each{|sp| sp.body.each{|pt| @hits << pt[:coords] if pt[:hit]}}
     @hits
+  end
+
+  def fire_missile(coords)
+    fail 'outside range' if outside?(coords)
+    fail 'already hit' if (hits + misses).include?(coords)
+    ships.each{|ship| return ship.hit!(coords) if ship.hit?(coords)}
+    @misses << coords
   end
 
   def misses
@@ -71,8 +57,26 @@ class Board
 
 end
 
+private
 
-# 
+def new_coords(ship,coords,orientation)
+  pending_coords(ship.size,coords,orientation)
+end
+
+def placement_validation(new_ship_coords)
+  fail 'out of bounds' if outside?(new_ship_coords)
+  fail 'overlapping' if overlap?(new_ship_coords)
+end
+
+def outside?(new_ship_coords)
+  new_ship_coords.flatten.max > size || new_ship_coords.flatten.min < 1
+end
+
+def overlap?(new_ship_coords)
+  ship_coords & new_ship_coords != []
+end
+
+#
 # def scenario1
 #   board = Board.new(4)
 #   ship1 = Ship.new(3)
