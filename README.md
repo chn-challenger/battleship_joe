@@ -1,4 +1,6 @@
 # Battleships - Mayhem
+
+.
 =======
 The aim of this project is to build an extended version of the classic board game of battleships.  Allowing for, but not limited to:  
 * Ships with width of more than 1 square.
