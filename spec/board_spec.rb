@@ -103,6 +103,29 @@ describe Board do
     end
   end
 
+  describe "#ocean" do
+    it 'populates an ocean board at initialization' do
+      board = Board.new(2)
+      expect(board.ocean).to eq([[1, 1], [1, 2], [2, 1], [2, 2]])
+    end
+
+    it 'populates with ocean coords after ship placement' do
+      board = Board.new(4)
+      board.place_ship(@ship1,[1,1],'east')
+      expect(board.ocean).to eq([[2, 1], [2, 2], [2, 3], [2, 4], [3, 1], [3, 2],
+       [3, 3], [3, 4], [4, 1], [4, 2], [4, 3], [4, 4]])
+    end
+
+    it 'populates with ocean coords after ship placement and firing missiles' do
+      board = Board.new(4)
+      board.place_ship(@ship1,[1,1],'east')
+      allow(@ship1).to receive(:hit?).and_return(false)
+      board.fire_missile([2,1])
+      board.fire_missile([3,1])
+      expect(board.ocean).to eq([[2, 2], [2, 3], [2, 4], [3, 2], [3, 3], [3, 4],
+       [4, 1], [4, 2], [4, 3], [4, 4]])
+    end
+  end
 
 
 
