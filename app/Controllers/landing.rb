@@ -5,7 +5,7 @@ module Battleships
     class Landing < Base
 
       get '/' do
-        'Hello BattleshipsApp!'
+        erb :'landing/homepage'
       end
 
     end
