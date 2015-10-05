@@ -1,6 +1,9 @@
 $(document).ready(function() {
 
-  $('#grid-1-1').on('click', function() {
-    $(this).css('background', 'red');
+  var board = new Board;
+
+  $('.grid').on('click', function() {
+    var gridColour = board.fire();
+    $(this).css('background', gridColour);
   });
 });
