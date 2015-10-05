@@ -44,45 +44,16 @@ feature 'Game Simulation' do
     expect(game.player2.board.hits).to eq([[2,1]])
   end
 
-  # scenario 'Both player boards register a miss' do
-  #   fleet1 = [Ship.new(2)]
-  #   fleet2 = [Ship.new(2)]
-  #   board1.place_ship(fleet1[0], [1,1], 'east')
-  #   board2.place_ship(fleet2[0], [2,1], 'east')
-  #   game.shoots([2,1])
-  #   game.shoots([1,1])
-  #   game.shoots([1,1])
-  #   game.shoots([2,1])
-  #   expect(game.player1.board.misses).to eq([[2,1]])
-  #   expect(game.player2.board.misses).to eq([[1,1]])
-  # end
-  #
-  # scenario "Player1 wins when player2's ships are sunk" do
-  #   fleet1 = [Ship.new(2)]
-  #   fleet2 = [Ship.new(2)]
-  #   board1.place_ship(fleet1[0], [1,1], 'east')
-  #   board2.place_ship(fleet2[0], [2,1], 'east')
-  #   game.shoots([2,1])
-  #   game.shoots([1,1])
-  #   game.shoots([1,1])
-  #   game.shoots([2,1])
-  #   game.shoots([2,2])
-  #   expect(game.winner).to eq(player1)
-  # end
+  scenario 'Both player boards register a miss' do
+    game.shoots([1,1])
+    game.shoots([2,1])
+    expect(game.player1.board.misses).to eq([[2,1]])
+    expect(game.player2.board.misses).to eq([[1,1]])
+  end
 
-  #
-  # scenario "Can setup a game with two players" do
-  #   allow(game).to receive(:both_players_have_five_ships?).and_return(true)
-  #   expect(game.ready?).to eq true
-  # end
-  #
-  # scenario "Can place ships on the boards for the game" do
-  #   board1.place_ship(fleet1[0], [1,1], 'east')
-  #   board2.place_ship(fleet2[0], [2,1], 'east')
-  #   expect()
-  # end
-
-
-
+  scenario "Player1 wins when player2's ships are sunk" do
+    game.shoots([2,2])
+    expect(game.winner).to eq(player1)
+  end
 
 end
