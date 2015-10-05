@@ -1,8 +1,8 @@
 require 'capybara/rspec'
-require './lib/game'
-require './lib/player'
-require './lib/board'
-require './lib/ship'
+require './app/lib/game'
+require './app/lib/player'
+require './app/lib/board'
+require './app/lib/ship'
 require './spec/spec_helper'
 
 feature 'Game Simulation' do

@@ -1,4 +1,4 @@
-require 'game'
+require './app/lib/game'
 describe Game do
 	let(:game){Game.new}
 	let(:board){double :board, floating_ships?: true, ships: [1]}

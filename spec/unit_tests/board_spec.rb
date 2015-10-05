@@ -1,4 +1,4 @@
-require 'board'
+require './app/lib/board'
 
 describe Board do
 
