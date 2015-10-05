@@ -9,6 +9,14 @@ The aim of this project is to build an extended version of the classic board gam
 * One time available missile type weapons, limited number optional firing per turn, e.g. cruise missiles, nuclear missiles - which can cause detonation of stored nuclear missile on enemy ships.
 * Graphical user interface - able to place ship with mouse drag, able to fire with mouse click.
 
+
+# Team
+=======
+* Joe
+* Harry
+* Moe
+* Lucy
+
 # Progress
 =======
 * Basic ship and board classes made, ships have body-parts which is an array of body-part hashes that store information about state of that body-part of the ship, including location on grid, whether it has been hit, value of weapon stored on it, missiles stored on it.
