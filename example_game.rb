@@ -1,7 +1,7 @@
-require './lib/game'
-require './lib/player'
-require './lib/board'
-require './lib/ship'
+require './app/lib/game'
+require './app/lib/player'
+require './app/lib/board'
+require './app/lib/ship'
 
 
 game = Game.new
@@ -36,6 +36,9 @@ while shot != "winner"
   counter += 1
 end
 
+puts player1.board.print_board
+
+
 # checking winner not using random shooting methods
 
 # game = Game.new
@@ -69,7 +72,7 @@ end
 # p winner
 
 
-p board1.show_my_board
-puts ""
-puts ""
-p board2.show_my_board
+# p board1.show_my_board
+# puts ""
+# puts ""
+# p board2.show_my_board

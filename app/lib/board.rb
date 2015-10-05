@@ -94,6 +94,25 @@ class Board
     end
   end
 
+  def print_board
+    result = "<div style= 'width: 320px; float:left;'>"
+    (1..size).each do |x|
+      (1..size).each do |y|
+        if good_ship_parts.include?([x,y])
+          result += "<div style= 'display: inline-block; border: 1px solid white; background-color: green; height: 30px; width: 30px'></div>"
+        elsif hits.include?([x,y])
+          result += "<div style= 'display: inline-block; border: 1px solid white; background-color: red; height: 30px; width: 30px'></div>"
+        elsif misses.include?([x,y])
+          result += "<div style= 'display: inline-block; border: 1px solid white; background-color: yellow; height: 30px; width: 30px'></div>"
+        elsif ocean.include?([x,y])
+          result += "<div style= 'display: inline-block; border: 1px solid white; background-color: blue; height: 30px; width: 30px'></div>"
+        end
+      end
+    end
+    result += "</div>"
+    return result
+  end
+
 private
 
   def new_coords(ship,coords,orientation)
