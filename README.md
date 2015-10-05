@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/chn-challenger/battleship_joe.png?label=ready&title=Ready)](https://waffle.io/chn-challenger/battleship_joe)
 # Battleships - Mayhem
 =======
 The aim of this project is to build an extended version of the classic board game of battleships.  Allowing for, but not limited to:  
