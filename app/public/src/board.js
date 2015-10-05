@@ -1,5 +1,4 @@
 function Board() {
-
 };
 
 Board.prototype.fire = function() {
