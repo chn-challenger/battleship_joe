@@ -54,30 +54,70 @@ class Board
     ships.collect{|ship| ship.sunk?}.all?
   end
 
-end
+  def place_ship_at_random(ship)
+    orientation = ['north', 'east', 'west', 'south'].sample
+    coords = [rand(1..size), rand(1..size)]
+    begin
+      place_ship(ship,coords,orientation)
+    rescue
+      place_ship_at_random(ship)
+    end
+  end
+
+  def fire_missile_at_random
+    coords = [rand(1..size), rand(1..size)]
+    begin
+      fire_missile(coords)
+    rescue
+      fire_missile_at_random
+    end
+  end
+
+  def show_my_board
+    # ship_not_hit = ship_coords - @hits  #returns just the parts of ship not hit - ie removes the hits!
+    (1..size).each do |x| #for every row
+      print '[ ' # create a start of the row
+      (1..size).each do |y| # for each cell on each row
+        current_coord = [x, y] # set coord to current_coord
+        if hits.include?(current_coord) #does the hits array contain the current_coord
+          print 'Hit        ' #if it does print this
+        elsif misses.include?(current_coord)
+          print 'Miss       '
+        elsif good_ship_parts.include?(current_coord)
+          print 'Ship       '
+        elsif ocean.include?(current_coord)
+          print 'Ocean      '
+        end
+      end
+      print ']'
+      puts ''
+    end
+  end
 
 private
 
-def new_coords(ship,coords,orientation)
-  pending_coords(ship.size,coords,orientation)
-end
+  def new_coords(ship,coords,orientation)
+    pending_coords(ship.size,coords,orientation)
+  end
 
-def placement_validation(new_ship_coords)
-  fail 'out of bounds' if outside?(new_ship_coords)
-  fail 'overlapping' if overlap?(new_ship_coords)
-end
+  def placement_validation(new_ship_coords)
+    fail 'out of bounds' if outside?(new_ship_coords)
+    fail 'overlapping' if overlap?(new_ship_coords)
+  end
 
-def missile_validation(coords)
-  fail 'outside range' if outside?(coords)
-  fail 'already hit' if (hits + misses).include?(coords)
-end
+  def missile_validation(coords)
+    fail 'outside range' if outside?(coords)
+    fail 'already hit' if (hits + misses).include?(coords)
+  end
 
-def outside?(new_ship_coords)
-  new_ship_coords.flatten.max > size || new_ship_coords.flatten.min < 1
-end
+  def outside?(new_ship_coords)
+    new_ship_coords.flatten.max > size || new_ship_coords.flatten.min < 1
+  end
 
-def overlap?(new_ship_coords)
-  ship_coords & new_ship_coords != []
+  def overlap?(new_ship_coords)
+    ship_coords & new_ship_coords != []
+  end
+
 end
 
 #
