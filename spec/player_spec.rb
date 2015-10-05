@@ -20,7 +20,7 @@ describe Player do
 
 	it "can receive shots" do
 		player.board = board
-		expect(board).to receive(:shoot_at).with(:A1)
+		expect(board).to receive(:fire_missile).with(:A1)
 		player.receive_shot(:A1)
 	end
 

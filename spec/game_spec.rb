@@ -1,8 +1,8 @@
 require 'game'
 describe Game do
 	let(:game){Game.new}
-	let(:board){double :board, floating_ships?: true, ships_count: 1}
-	let(:board2){double :board, ships_count: 1}
+	let(:board){double :board, floating_ships?: true, ships: [1]}
+	let(:board2){double :board, ships: [1]}
 	let(:player1){double :player, board: board, has_board?: true }
 	let(:player2){double :player, board: board2, has_board?: true }
 
@@ -17,7 +17,7 @@ describe Game do
 		expect(game.player2).to eq player2
 	end
 
-	it "knows when there are two players" do 
+	it "knows when there are two players" do
 		game.send(:add_player, player1)
 		game.send(:add_player,player2)
 		expect(game.send(:has_two_players?)).to eq true
@@ -42,29 +42,29 @@ context "has two players with boards" do
 
 	it "switchs turns when player1 has a go" do
 		allow(player2).to receive(:receive_shot)
-		allow(board2).to receive(:floating_ships?).and_return(true)
+		allow(board2).to receive(:lose?).and_return(false)
 		game.shoots(:A1)
 		expect(game.send(:turn)).to eq player2
 	end
 
 	it "receives a shot" do
-		allow(board2).to receive(:floating_ships?).and_return(true)
+		allow(board2).to receive(:lose?).and_return(false)
 		expect(player2).to receive(:receive_shot).with(:A1)
 		game.shoots(:A1)
 	end
 
 
 	it "trys to switch turns if there is a shot" do
-		allow(board2).to receive(:floating_ships?).and_return(true)
+		allow(board2).to receive(:lose?).and_return(false)
 		allow(player2).to receive(:receive_shot).with(:A1)
 		expect(game).to receive(:switch_turns)
 		game.shoots(:A1)
 	end
 
-	it "raises there is a winner if there is a winner" do
-		allow(board2).to receive(:floating_ships?).and_return(false)
+	it "return winner if there is a winner" do
+		allow(board2).to receive(:lose?).and_return(true)
 		allow(player2).to receive(:receive_shot).with(:A1)
-		expect{game.shoots(:A1)}.to raise_error "There is a winner you cannot shoot"
+		expect(game.shoots(:A1)).to eq "winner"
 	end
 
 	it "can have an opponent" do
@@ -77,7 +77,7 @@ context "has two players with boards" do
 	end
 
 	it "knows if there is a winner" do
-		allow(board2).to receive(:floating_ships?).and_return(false)
+		allow(board2).to receive(:lose?).and_return(true)
 		expect(game.winner).to eq player1
 	end
 
@@ -86,7 +86,7 @@ context "has two players with boards" do
 	end
 
 	it "expects to ask a ship count from players 1s board" do
-		expect(board).to receive(:ships_count).and_return 5
+		expect(board.ships).to receive(:count).and_return 5
 		game.ready?
 	end
 
@@ -96,8 +96,8 @@ context "has two players with boards" do
 	end
 
 	it "expects to ask a ship count from player 2s board" do
-		allow(board).to receive(:ships_count).and_return 5
-		expect(board2).to receive(:ships_count).and_return 5
+		allow(board.ships).to receive(:count).and_return 5
+		expect(board2.ships).to receive(:count).and_return 5
 		game.ready?
 	end
 
@@ -107,9 +107,9 @@ context "has two players with boards" do
 	end
 
 	it "knows when a game is ready" do
-		allow(board).to receive(:ships_count).and_return 5
+		allow(board.ships).to receive(:count).and_return 5
 		allow(player1).to receive(:has_board?).and_return true
-		allow(board2).to receive(:ships_count).and_return 5
+		allow(board2.ships).to receive(:count).and_return 5
 		allow(player2).to receive(:has_board?).and_return true
 		expect(game.ready?).to eq true
 	end
