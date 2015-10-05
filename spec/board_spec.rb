@@ -44,6 +44,29 @@ describe Board do
     end
   end
 
+  describe "#place_ship_at_random" do
+    it 'can place ship at random' do
+      class FakeShip
+        attr_reader :size, :body
+
+        def initialize(size=2)
+          @size = size
+          @body = []
+          @size.times{@body << {coords:[], hit:false}}
+        end
+
+        def update_ship_coords(new_ship_coords)
+          (0...size).each{|i| body[i][:coords] = new_ship_coords[i]}
+        end
+      end
+
+      ship = FakeShip.new
+      srand(100)
+      @brd.place_ship_at_random(ship)
+      expect(@brd.ship_coords).to eq([[9, 4], [8, 4]])
+    end
+  end
+
   describe "#ship_coords" do
     it 'populates the ship_coords array with coords of one ship' do
       @brd.place_ship(@ship1,[1,1],'east')
@@ -67,11 +90,11 @@ describe Board do
   end
 
   describe "#fire_missile" do
-    it 'raises error when missles are fired outside range' do
+    it 'raises error when missiles are fired outside range' do
       expect{ @brd.fire_missile([0,0]) }.to raise_error "outside range"
     end
 
-    it 'raises error when missles ship coordinate is already hit' do
+    it 'raises error when missiles ship coordinate is already hit' do
       @brd.place_ship(@ship1,[1,1],'east')
       @brd.place_ship(@ship2,[3,3],'south')
       expect{ @brd.fire_missile([1,3]) }.to raise_error "already hit"
