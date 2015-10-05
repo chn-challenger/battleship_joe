@@ -1,6 +1,5 @@
 require 'board'
 
-
 describe Board do
 
   before(:each) do
@@ -22,20 +21,6 @@ describe Board do
       expect(@brd.ships).to eq([])
     end
   end
-
-  # describe "#new_coords" do
-  #   it 'returns pending ship coordinates based on new ship position' do
-  #     ship = double(:fake_ship, size: 3)
-  #     pending_coords = subject.new_coords(ship,[1,2],'east')
-  #     expect(pending_coords).to eq([[1, 2], [1, 3],[1, 4]])
-  #   end
-  #
-  #   it 'returns pending ship coordinates even if errorness positions given' do
-  #     ship = double(:fake_ship, size: 4)
-  #     pending_coords = subject.new_coords(ship,[1,2],'west')
-  #     expect(pending_coords).to eq([[1, 2], [1, 1], [1, 0], [1, -1]])
-  #   end
-  # end
 
   describe "#place_ship" do
     it 'raise error when trying to place a ship out of board range' do
@@ -82,8 +67,60 @@ describe Board do
   end
 
   describe "#fire_missile" do
-    
+    it 'raises error when missles are fired outside range' do
+      expect{ @brd.fire_missile([0,0]) }.to raise_error "outside range"
+    end
+
+    it 'raises error when missles ship coordinate is already hit' do
+      @brd.place_ship(@ship1,[1,1],'east')
+      @brd.place_ship(@ship2,[3,3],'south')
+      expect{ @brd.fire_missile([1,3]) }.to raise_error "already hit"
+    end
+
+    it 'registers a ship hit' do
+      @brd.place_ship(@ship1,[1,1],'east')
+      allow(@ship1).to receive(:hit?).and_return(true)
+      allow(@ship1).to receive(:hit!).and_return(true)
+      @brd.fire_missile([1,1])
+      @ship1.body[0][:hit] = true
+      expect(@brd.hits).to eql([[1, 1], [1, 3], [1, 4]])
+    end
+
+    it 'registers a missed hit' do
+      @brd.place_ship(@ship1,[1,1],'east')
+      allow(@ship1).to receive(:hit?).and_return(false)
+      @brd.fire_missile([1,6])
+      @brd.fire_missile([2,9])
+      expect(@brd.misses).to eql([[1,6], [2,9]])
+    end
   end
+
+  describe "#misses" do
+    it 'populates the misses array with coords of misses' do
+      @brd.fire_missile([1,6])
+      @brd.fire_missile([2,8])
+      expect(@brd.misses).to eq([[1, 6], [2, 8]])
+    end
+  end
+
+
+
+
+
+
+  # before(:each) do
+  #   @ship1 = double(:fake_ship1, size: 4, update_ship_coords: true)
+  #   allow(@ship1).to receive(:body).and_return([{coords:[1,1],hit:false},
+  #     {coords:[1,2],hit:false},{coords:[1,3],hit:true},{coords:[1,4],hit:true}])
+
+  #   @ship2 = double(:fake_ship1, size: 3, update_ship_coords: true)
+  #   allow(@ship2).to receive(:body).and_return([{coords:[3,3],hit:false},
+  #     {coords:[4,3],hit:true},{coords:[5,3],hit:false}])
+
+  #   @brd = Board.new
+  # end
+
+
 
 
 end

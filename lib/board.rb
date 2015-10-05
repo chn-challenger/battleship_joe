@@ -30,8 +30,7 @@ class Board
   end
 
   def fire_missile(coords)
-    fail 'outside range' if outside?(coords)
-    fail 'already hit' if (hits + misses).include?(coords)
+    missile_validation(coords)
     ships.each{|ship| return ship.hit!(coords) if ship.hit?(coords)}
     @misses << coords
   end
@@ -66,6 +65,11 @@ end
 def placement_validation(new_ship_coords)
   fail 'out of bounds' if outside?(new_ship_coords)
   fail 'overlapping' if overlap?(new_ship_coords)
+end
+
+def missile_validation(coords)
+  fail 'outside range' if outside?(coords)
+  fail 'already hit' if (hits + misses).include?(coords)
 end
 
 def outside?(new_ship_coords)
