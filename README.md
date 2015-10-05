@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/chn-challenger/battleship_joe.png?label=ready&title=Ready)](https://waffle.io/chn-challenger/battleship_joe)
 # Battleships - Mayhem
 
 .
