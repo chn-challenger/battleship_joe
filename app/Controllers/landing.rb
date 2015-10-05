@@ -12,6 +12,13 @@ module Battleships
         erb :test
       end
 
+      get '/test/:id' do
+        @hitArray = []
+        @hitArray << params[:id]
+        p @hitArray
+        redirect to('/test')
+      end
+
     end
 
   end
