@@ -30,8 +30,7 @@ class Board
   end
 
   def fire_missile(coords)
-    fail 'outside range' if outside?(coords)
-    fail 'already hit' if (hits + misses).include?(coords)
+    missile_validation(coords)
     ships.each{|ship| return ship.hit!(coords) if ship.hit?(coords)}
     @misses << coords
   end
@@ -51,7 +50,7 @@ class Board
     @good_ship_parts = ship_coords - hits
   end
 
-  def loose?
+  def lose?
     ships.collect{|ship| ship.sunk?}.all?
   end
 
@@ -68,6 +67,11 @@ def placement_validation(new_ship_coords)
   fail 'overlapping' if overlap?(new_ship_coords)
 end
 
+def missile_validation(coords)
+  fail 'outside range' if outside?(coords)
+  fail 'already hit' if (hits + misses).include?(coords)
+end
+
 def outside?(new_ship_coords)
   new_ship_coords.flatten.max > size || new_ship_coords.flatten.min < 1
 end
@@ -78,7 +82,7 @@ end
 
 #
 # def scenario1
-#   board = Board.new(4)
+#   board = Board.new(5)
 #   ship1 = Ship.new(3)
 #   ship2 = Ship.new(2)
 #   board.place_ship(ship1,[1,1],'south')
@@ -95,13 +99,6 @@ end
 # end
 #
 # scenario1
-#
-# board = Board.new(4)
-# ship = Ship.new(3)
-# board.ocean
-# board.place_ship(ship,[1,2],'south')
-# p board.ship_coords
-# p board.ships
 
 
 
