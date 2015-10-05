@@ -1,4 +1,4 @@
-require 'board'
+require './app/lib/board'
 
 
 describe Board do
@@ -82,7 +82,7 @@ describe Board do
   end
 
   describe "#fire_missile" do
-    
+
   end
 
 
