@@ -50,7 +50,7 @@ class Board
     @good_ship_parts = ship_coords - hits
   end
 
-  def loose?
+  def lose?
     ships.collect{|ship| ship.sunk?}.all?
   end
 
@@ -82,7 +82,7 @@ end
 
 #
 # def scenario1
-#   board = Board.new(4)
+#   board = Board.new(5)
 #   ship1 = Ship.new(3)
 #   ship2 = Ship.new(2)
 #   board.place_ship(ship1,[1,1],'south')
@@ -99,13 +99,6 @@ end
 # end
 #
 # scenario1
-#
-# board = Board.new(4)
-# ship = Ship.new(3)
-# board.ocean
-# board.place_ship(ship,[1,2],'south')
-# p board.ship_coords
-# p board.ships
 
 
 
