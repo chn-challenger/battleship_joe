@@ -5,6 +5,7 @@ source "https://rubygems.org"
   gem 'shotgun'
   gem 'sinatra'
   gem 'sinatra-flash'
+  gem 'json'
 
 group :test do
   gem 'rspec'

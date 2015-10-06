@@ -123,6 +123,7 @@ DEPENDENCIES
   capybara
   coveralls
   factory_girl
+  json
   pry
   rspec
   rspec-sinatra
