@@ -18,7 +18,12 @@ module Battleships
         $users ||= {}
         $users[session[:username]]=false
         redirect '/users/ready'
+      end
 
+      get '/users/ready' do
+        @username = session[:username]
+        @users = $users
+        erb :'/users/ready'
       end
 
       get '/test' do

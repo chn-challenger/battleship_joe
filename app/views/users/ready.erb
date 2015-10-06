@@ -1,0 +1,20 @@
+<h1> Hi there, <%= @username %> </h1>
+
+<% if @users %>
+
+<ul>
+  <% @users.each do | key, value | %>
+  <li><%= key %> <%= value %>
+
+    <form action="/users/ready" method="post">
+      <input type="submit" value="Ready">
+    </form>
+
+
+
+
+
+  </li>
+  <% end %>
+</ul>
+<% end %>
