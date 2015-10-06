@@ -1,4 +1,4 @@
-<div class='board'>
+<!-- <div id='board'>
   <% (1..10).to_a.reverse.each do |x| coloumn = "#{x}" %>
     <% (1..10).each do |x| row = "#{x}" %>
         <div class="grid" id=<%= "grid-" + coloumn + "-" + row %>><%= coloumn + "-" + row %></div>
@@ -12,4 +12,7 @@
         <div class="grid hello" id=<%= "grid-" + coloumn + "-" + row %>><%= coloumn + "-" + row %></div>
     <% end %>
   <% end %>
-</div>
+</div> -->
+
+<%= @result %>
+<%= @opponent_result %>

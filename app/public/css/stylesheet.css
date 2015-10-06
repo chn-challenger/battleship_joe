@@ -20,3 +20,19 @@
   border: solid 1px black;
   float: left;
 }
+
+.ship {
+  background-color: green;
+}
+
+.hits {
+  background-color: red;
+}
+
+.misses {
+  background-color: yellow;
+}
+
+.ocean {
+  background-color: blue;
+}

@@ -16,15 +16,14 @@ module Battleships
         erb :'/users/new'
       end
 
-<<<<<<< HEAD
-      post '/test', :provides => :json do
-        begin
-          params = JSON.parse(request.env["rack.input"].read)
-          co_ordinates = []
-          params.each {|x| co_ordinates << x.to_i }
-        end
-      end
-=======
+      # post '/test', :provides => :json do
+      #   begin
+      #     params = JSON.parse(request.env["rack.input"].read)
+      #     co_ordinates = []
+      #     params.each {|x| co_ordinates << x.to_i }
+      #   end
+      # end
+
       post '/users/sign-up' do
         session[:username] = params[:username]
         $users ||= {}
@@ -71,7 +70,10 @@ module Battleships
         @player2_name = $new_game.player2.name
         @username = session[:username]
         @turn = $new_game.turn.name
-
+        @board_display1 = $new_game.player1.board.print_board
+        @opponent_display1 = $new_game.player2.board.print_opponent_board
+        @board_display2 = $new_game.player2.board.print_board
+        @opponent_display2 = $new_game.player1.board.print_opponent_board
         erb :'/game/new'
       end
 
@@ -94,6 +96,8 @@ module Battleships
     get '/game/new/player1' do
       @username = session[:username]
       @turn = $new_game.turn.name
+      @board_display1 = $new_game.player1.board.print_board
+      @opponent_display1 = $new_game.player2.board.print_opponent_board
       erb :'game/player1'
     end
 
@@ -112,17 +116,11 @@ module Battleships
     get '/game/new/player2' do
       @username = session[:username]
       @turn = $new_game.turn.name
+      @board_display2 = $new_game.player2.board.print_board
+      @opponent_display2 = $new_game.player1.board.print_opponent_board
       erb :'game/player2'
     end
 
-
-
-
-      # get '/game/new' do
-      #   erb :test
-      # end
-
->>>>>>> 855a6954fd49b9a9f81d1de592a6717463bb7d4b
     end
 
   end

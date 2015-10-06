@@ -1,6 +1,7 @@
 <% if @username == @player1_name %>
   <p>Player1 name <%= @player1_name %></p>
-  <p>print player1 board on left print player2 board on right</p>
+  <%= @board_display1 %>
+  <%= @opponent_display1 %>
   <% if @turn == @username %>
     <form action="/game/new/player1" method="post">
       <input type='text' name='coords'>
@@ -9,7 +10,8 @@
   <% end %>
 <%else %>
   <p>Player2 name <%= @player2_name %></p>
-  <p>print player2 board on left print player1 board on right</p>
+  <%= @board_display2 %>
+  <%= @opponent_display2 %>
   <% if @turn == @username %>
     <form action="/game/new/player2" method="post">
       <input type='text' name='coords'>
