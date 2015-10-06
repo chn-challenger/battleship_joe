@@ -12,6 +12,12 @@ module Battleships
       end
 
       get '/test' do
+        board1 = Board.new
+        board2 = Board.new
+        @result = board1.print_board
+        @opponent_result = board2.print_opponet_board
+
+
         erb :test
       end
 
