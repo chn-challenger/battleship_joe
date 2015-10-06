@@ -75,26 +75,26 @@ class Board
     end
   end
 
-  def show_my_board
-    # ship_not_hit = ship_coords - @hits  #returns just the parts of ship not hit - ie removes the hits!
-    (1..size).each do |x| #for every row
-      print '[ ' # create a start of the row
-      (1..size).each do |y| # for each cell on each row
-        current_coord = [x, y] # set coord to current_coord
-        if hits.include?(current_coord) #does the hits array contain the current_coord
-          print 'Hit        ' #if it does print this
-        elsif misses.include?(current_coord)
-          print 'Miss       '
-        elsif good_ship_parts.include?(current_coord)
-          print 'Ship       '
-        elsif ocean.include?(current_coord)
-          print 'Ocean      '
-        end
-      end
-      print ']'
-      puts ''
-    end
-  end
+  # def show_my_board
+  #   # ship_not_hit = ship_coords - @hits  #returns just the parts of ship not hit - ie removes the hits!
+  #   (1..size).each do |x| #for every row
+  #     print '[ ' # create a start of the row
+  #     (1..size).each do |y| # for each cell on each row
+  #       current_coord = [x, y] # set coord to current_coord
+  #       if hits.include?(current_coord) #does the hits array contain the current_coord
+  #         print 'Hit        ' #if it does print this
+  #       elsif misses.include?(current_coord)
+  #         print 'Miss       '
+  #       elsif good_ship_parts.include?(current_coord)
+  #         print 'Ship       '
+  #       elsif ocean.include?(current_coord)
+  #         print 'Ocean      '
+  #       end
+  #     end
+  #     print ']'
+  #     puts ''
+  #   end
+  # end
 
 private
 
