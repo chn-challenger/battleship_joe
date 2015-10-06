@@ -8,6 +8,19 @@ module Battleships
         erb :'landing/homepage'
       end
 
+      get '/users/new' do
+        @username = session[:username]
+        erb :'/users/new'
+      end
+
+      post '/users/sign-up' do
+        session[:username] = params[:username]
+        $users ||= {}
+        $users[session[:username]]=false
+        redirect '/users/ready'
+
+      end
+
       get '/test' do
         erb :test
       end
