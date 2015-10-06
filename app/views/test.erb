@@ -1,12 +1,13 @@
-<!-- <div id='board' style='width:<%= 12 * 50 %>px; height:<%= 12 * 50 %>px; align: center; padding-left: 20px;'>
+<div id='board' style='width:<%= 12 * 50 %>px; height:<%= 12 * 50 %>px; align: center; padding-left: 20px;'>
+  <form action="/test" method="get">
   <% (1..12).to_a.reverse.each do |x| coloumn = "#{x}" %>
     <% (1..12).each do |x| row = "#{x}" %>
-        <div class="grid" id=<%= "grid-" + coloumn + "-" + row %> style = 'width: 48px; height: 48px; border: solid 1px black; float: left'>
+        <a href='/test/<%= coloumn + "," + row %>' type="button" class="grid" id=<%= "grid-" + coloumn + "-" + row %>>
           <%= coloumn + "-" + row %>
-        </div>
+        </a>
     <% end %>
   <% end %>
-</div> -->
+</div>
 
 
-<%= @result %>
+<!-- #<%= @result %> -->
