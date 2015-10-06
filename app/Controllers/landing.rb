@@ -20,11 +20,11 @@ module Battleships
         redirect '/users/ready'
       end
 
-      get '/users/dummy' do
+      get '/users/ready' do
         @username = session[:username]
         @user_ready = $users[session[:username]]
         @users = $users
-        erb :'/users/dummy'
+        erb :'/users/ready'
       end
 
       post '/users/ready' do
@@ -32,12 +32,12 @@ module Battleships
         redirect '/users/ready'
       end
 
-      get '/users/ready' do
-        erb :'/users/ready', layout: false
-      end
+      # get '/users/ready' do
+      #   erb :'/users/ready', layout: false
+      # end
 
 
-      get '/test' do
+      get '/game/new' do
         erb :test
       end
 
