@@ -1,5 +1,5 @@
 require 'sinatra/base'
-require_relative './app/controllers/base'
+require_relative 'controllers/base'
 require './app/controllers/landing'
 require './app/lib/game'
 require './app/lib/player'
