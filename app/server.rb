@@ -1,6 +1,11 @@
 require 'sinatra/base'
 require './app/controllers/base'
 require './app/controllers/landing'
+require './app/lib/game'
+require './app/lib/player'
+require './app/lib/board'
+require './app/lib/ship'
+
 
 module Battleships
 

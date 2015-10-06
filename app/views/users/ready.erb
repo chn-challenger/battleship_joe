@@ -1,0 +1,35 @@
+<!-- <script type="text/javascript">
+setTimeout(function(){
+   window.location.reload(1);
+}, 1000);
+</script> -->
+<!--
+<script type="text/javascript">
+window.setTimeout(function(){ document.location.reload(true); }, 1500);
+</script> -->
+
+<h1> Hi there, <%= @username %> </h1>
+
+<% if @users %>
+
+<ul>
+  <% @users.each do | key, value | %>
+  <li><%= key %> <%= value %>
+
+
+  <% if @user_ready == false && key == @username %>
+    <form action="/users/ready" method="post">
+      <input type="submit" value="Ready">
+    </form>
+  <% end %>
+
+  </li>
+  <% end %>
+</ul>
+<% end %>
+
+<% if @users.values.count(true) >= 2 && @users[@username]==true%>
+  <form action="/game/new">
+    <input type="submit" value="Start Game!">
+  </form>
+<% end %>

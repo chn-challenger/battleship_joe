@@ -1,0 +1,22 @@
+<!--
+<div id="ready"></div>
+
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+
+
+<script type="text/javascript">
+
+function startRefresh() {
+    setTimeout(startRefresh,1000);
+    $.get('/users/dummy', function(data) {
+        $('#ready').html(data);
+    });
+}
+
+$(function() {
+    startRefresh();
+});
+
+
+
+</script> -->
