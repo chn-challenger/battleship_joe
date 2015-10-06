@@ -13,10 +13,10 @@ module Battleships
       end
 
       get '/test/:id' do
-        @hitArray = []
-        @hitArray << params[:id]
-        p @hitArray
-        redirect to('/test')
+        # @hitArray = []
+        # @hitArray << params[:id]
+        # p @hitArray
+        # redirect to('/test')
       end
 
     end
