@@ -1,22 +1,29 @@
-
-<div id="dummy"></div>
-
-<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-
-
+<!-- <script type="text/javascript">
+setTimeout(function(){
+   window.location.reload(1);
+}, 1000);
+</script> -->
+<!--
 <script type="text/javascript">
+window.setTimeout(function(){ document.location.reload(true); }, 1500);
+</script> -->
 
-function startRefresh() {
-    setTimeout(startRefresh,1000);
-    $.get('/users/ready', function(data) {
-        $('#dummy').html(data);
-    });
-}
+<h1> Hi there, <%= @username %> </h1>
 
-$(function() {
-    startRefresh();
-});
+<% if @users %>
 
+<ul>
+  <% @users.each do | key, value | %>
+  <li><%= key %> <%= value %>
 
 
-</script>
+  <% if @user_ready == false && key == @username %>
+    <form action="/users/ready" method="post">
+      <input type="submit" value="Ready">
+    </form>
+  <% end %>
+
+  </li>
+  <% end %>
+</ul>
+<% end %>
