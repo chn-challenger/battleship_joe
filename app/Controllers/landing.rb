@@ -22,9 +22,20 @@ module Battleships
 
       get '/users/ready' do
         @username = session[:username]
+        @user_ready = $users[session[:username]]
         @users = $users
         erb :'/users/ready'
       end
+
+      post '/users/ready' do
+        $users[session[:username]] = true
+        redirect '/users/ready'
+      end
+
+      get '/dummy' do
+        erb :'/users/dummy', layout: false
+      end
+
 
       get '/test' do
         erb :test
