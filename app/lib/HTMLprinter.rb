@@ -10,7 +10,7 @@ module HTMLprinter
           result += "<div class='grid hits' id='grid-#{column}-#{row}'>#{column}-#{row}</div>"
         elsif misses.include?([x,y])
           result += "<div class='grid misses' id='grid-#{column}-#{row}'>#{column}-#{row}</div>"
-        elsif ocean.include?([x,y])
+        else
           result += "<div class='grid ocean' id='grid-#{column}-#{row}'>#{column}-#{row}</div>"
         end
       end
@@ -20,7 +20,7 @@ module HTMLprinter
   end
 
 
-  def print_opponet_board
+  def print_opponent_board
     opponent_result = "<section class='board'>"
     (1..size).to_a.reverse.each do |x| column = "#{x}"
       (1..size).each do |y| row = "#{y}"
@@ -28,7 +28,7 @@ module HTMLprinter
           opponent_result += "<div class='grid hits' id='grid-#{column}-#{row}'>#{column}-#{row}</div>"
         elsif misses.include?([x,y])
           opponent_result += "<div class='grid misses' id='grid-#{column}-#{row}'>#{column}-#{row}</div>"
-        elsif ocean.include?([x,y])
+        else
           opponent_result += "<div class='grid ocean' id='grid-#{column}-#{row}'>#{column}-#{row}</div>"
         end
       end
