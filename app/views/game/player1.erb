@@ -1,0 +1,9 @@
+Player 1 has fired successfully
+<p>print player1 board on left print player2 board on right</p>
+
+<% if @turn == @username %>
+  <form action="/game/new/player1" method="post">
+    <input type='text' name='coords'>
+    <input type="submit" value="Fire">
+  </form>
+<% end %>

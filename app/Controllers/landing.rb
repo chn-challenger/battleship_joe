@@ -58,6 +58,8 @@ module Battleships
         @player1_name = $new_game.player1.name
         @player2_name = $new_game.player2.name
         @username = session[:username]
+        @turn = $new_game.turn.name
+
         erb :'/game/new'
       end
 
@@ -65,10 +67,48 @@ module Battleships
       #   erb :'/users/ready', layout: false
       # end
 
+    post '/game/new/player1' do
+      coords = params[:coords].split(",")
+      new_coords = []
 
-      get '/game/new' do
-        erb :test
+      coords.each do |n|
+        new_coords << n.to_i
       end
+      p new_coords
+      $new_game.shoots(new_coords)
+      redirect '/game/new/player1'
+    end
+
+    get '/game/new/player1' do
+      @username = session[:username]
+      @turn = $new_game.turn.name
+      erb :'game/player1'
+    end
+
+    post '/game/new/player2' do
+      coords = params[:coords].split(",")
+      new_coords = []
+
+      coords.each do |n|
+        new_coords << n.to_i
+      end
+      p new_coords
+      $new_game.shoots(new_coords)
+      redirect '/game/new/player2'
+    end
+
+    get '/game/new/player2' do
+      @username = session[:username]
+      @turn = $new_game.turn.name
+      erb :'game/player2'
+    end
+
+
+
+
+      # get '/game/new' do
+      #   erb :test
+      # end
 
     end
 
