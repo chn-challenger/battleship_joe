@@ -57,22 +57,27 @@ class Board
   end
 
   def place_ship_at_random(ship)
-    orientation = ['north', 'east', 'west', 'south'].sample
-    coords = [rand(1..size), rand(1..size)]
     begin
-      place_ship(ship,coords,orientation)
+      place_ship(ship,random_coords,random_orientation)
     rescue
       place_ship_at_random(ship)
     end
   end
 
   def fire_missile_at_random
-    coords = [rand(1..size), rand(1..size)]
     begin
-      fire_missile(coords)
+      fire_missile(random_coords)
     rescue
       fire_missile_at_random
     end
+  end
+
+  def random_orientation
+    ['north', 'east', 'west', 'south'].sample
+  end
+
+  def random_coords
+    [rand(1..size), rand(1..size)]
   end
 
   # def show_my_board
