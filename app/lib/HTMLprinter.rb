@@ -5,13 +5,13 @@ module HTMLprinter
     (1..size).to_a.reverse.each do |x| column = "#{x}"
       (1..size).each do |y| row = "#{y}"
         if good_ship_parts.include?([x,y])
-          result += "<div class='grid ship' id='grid-#{column}-#{row}'>#{column}-#{row}</div>"
+          result += "<div class='player ship' id='grid-#{column}-#{row}'>#{column}-#{row}</div>"
         elsif hits.include?([x,y])
-          result += "<div class='grid hits' id='grid-#{column}-#{row}'>#{column}-#{row}</div>"
+          result += "<div class='player hits' id='grid-#{column}-#{row}'>#{column}-#{row}</div>"
         elsif misses.include?([x,y])
-          result += "<div class='grid misses' id='grid-#{column}-#{row}'>#{column}-#{row}</div>"
+          result += "<div class='player misses' id='grid-#{column}-#{row}'>#{column}-#{row}</div>"
         else
-          result += "<div class='grid ocean' id='grid-#{column}-#{row}'>#{column}-#{row}</div>"
+          result += "<div class='player ocean' id='grid-#{column}-#{row}'>#{column}-#{row}</div>"
         end
       end
     end
@@ -25,11 +25,11 @@ module HTMLprinter
     (1..size).to_a.reverse.each do |x| column = "#{x}"
       (1..size).each do |y| row = "#{y}"
         if hits.include?([x,y])
-          opponent_result += "<div class='grid hits' id='grid-#{column}-#{row}'>#{column}-#{row}</div>"
+          opponent_result += "<div class='opponent hits' id='grid-#{column}-#{row}'>#{column}-#{row}</div>"
         elsif misses.include?([x,y])
-          opponent_result += "<div class='grid misses' id='grid-#{column}-#{row}'>#{column}-#{row}</div>"
+          opponent_result += "<div class='opponent misses' id='grid-#{column}-#{row}'>#{column}-#{row}</div>"
         else
-          opponent_result += "<div class='grid ocean' id='grid-#{column}-#{row}'>#{column}-#{row}</div>"
+          opponent_result += "<div class='opponent ocean' id='grid-#{column}-#{row}'>#{column}-#{row}</div>"
         end
       end
     end

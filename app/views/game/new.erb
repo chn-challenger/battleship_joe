@@ -1,21 +1,15 @@
 <% if @username == @player1_name %>
-  <p>Player1 name <%= @player1_name %></p>
+  <p>You are <%= @player1_name %></p>
   <%= @board_display1 %>
   <%= @opponent_display1 %>
   <% if @turn == @username %>
-    <form action="/game/new/player1" method="post">
-      <input type='text' name='coords'>
-      <input type="submit" value="Fire">
-    </form>
+    <script src="/src/turn.js"></script>
   <% end %>
 <%else %>
-  <p>Player2 name <%= @player2_name %></p>
+  <p>You are <%= @player2_name %></p>
   <%= @board_display2 %>
   <%= @opponent_display2 %>
   <% if @turn == @username %>
-    <form action="/game/new/player2" method="post">
-      <input type='text' name='coords'>
-      <input type="submit" value="Fire">
-    </form>
+    <script src="/src/turn.js"></script>
   <% end %>
 <% end %>

@@ -2,6 +2,7 @@ Player 2 has fired successfully
 <%= @board_display2 %>
 <%= @opponent_display2 %>
 <% if @turn == @username %>
+  <script src="/src/turn.js"></script>
   <form action="/game/new/player2" method="post">
     <input type='text' name='coords'>
     <input type="submit" value="Fire">

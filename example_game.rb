@@ -18,25 +18,27 @@ board2 = Board.new
 game.add_player(player1)
 game.add_player(player2)
 
-player1.board = board1
-player2.board = board2
+p game.player1.name
 
-fleet1.each do |ship|
-  board1.place_ship_at_random(ship)
-end
-
-fleet2.each do |ship|
-  board2.place_ship_at_random(ship)
-end
-
-counter = 0
-shot = ""
-while shot != "winner"
-  shot = game.shoots_at_random
-  counter += 1
-end
-
-puts player1.board.print_board
+# player1.board = board1
+# player2.board = board2
+#
+# fleet1.each do |ship|
+#   board1.place_ship_at_random(ship)
+# end
+#
+# fleet2.each do |ship|
+#   board2.place_ship_at_random(ship)
+# end
+#
+# counter = 0
+# shot = ""
+# while shot != "winner"
+#   shot = game.shoots_at_random
+#   counter += 1
+# end
+#
+# puts player1.board.print_board
 
 
 # checking winner not using random shooting methods
