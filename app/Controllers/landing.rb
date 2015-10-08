@@ -16,14 +16,6 @@ module Battleships
         erb :'/users/new'
       end
 
-      # post '/test', :provides => :json do
-      #   begin
-      #     params = JSON.parse(request.env["rack.input"].read)
-      #     co_ordinates = []
-      #     params.each {|x| co_ordinates << x.to_i }
-      #   end
-      # end
-
       post '/users/sign-up' do
         session[:username] = params[:username]
         $users ||= {}
@@ -45,7 +37,9 @@ module Battleships
 
       get '/game/new' do
         if $new_game
-          $new_game.player2.name = session[:username]
+          if $new_game.player2.name == nil && session[:username] != $new_game.player1.name
+            $new_game.player2.name = session[:username]
+          end
         else
           $new_game = Game.new
           player1 = Player.new
@@ -66,10 +60,13 @@ module Battleships
             board2.place_ship_at_random(ship)
           end
         end
+
         @player1_name = $new_game.player1.name
         @player2_name = $new_game.player2.name
         @username = session[:username]
+        # puts "current user is #{@username}"
         @turn = $new_game.turn.name
+        # puts "it is #{@turn} 's turn'"
         @board_display1 = $new_game.player1.board.print_board
         @opponent_display1 = $new_game.player2.board.print_opponent_board
         @board_display2 = $new_game.player2.board.print_board
@@ -77,49 +74,36 @@ module Battleships
         erb :'/game/new'
       end
 
-      # get '/users/ready' do
-      #   erb :'/users/ready', layout: false
+    get '/test_view' do
+      erb :'test_view'
+    end
+
+    post '/test', :provides => :json do
+      # begin
+        params = JSON.parse(request.env["rack.input"].read)
+        p params
+
+        fired_position = []
+        fired_position = params['position'].split(',').map{|x| x.to_i}
+        p fired_position
+        $new_game.shoots(fired_position);
+        # stuff = []
+        # params.each {|x| stuff << x }
+        # p stuff
+      # rescue Exception => e
+      #   return e.message
       # end
+        redirect '/users/new'
+        # return "<root>hello</root>"
 
-    post '/game/new/player1' do
-      coords = params[:coords].split(",")
-      new_coords = []
 
-      coords.each do |n|
-        new_coords << n.to_i
-      end
-      p new_coords
-      $new_game.shoots(new_coords)
-      redirect '/game/new/player1'
     end
 
-    get '/game/new/player1' do
-      @username = session[:username]
-      @turn = $new_game.turn.name
-      @board_display1 = $new_game.player1.board.print_board
-      @opponent_display1 = $new_game.player2.board.print_opponent_board
-      erb :'game/player1'
+    get '/test1' do
+      erb :'test_view'
     end
 
-    post '/game/new/player2' do
-      coords = params[:coords].split(",")
-      new_coords = []
 
-      coords.each do |n|
-        new_coords << n.to_i
-      end
-      p new_coords
-      $new_game.shoots(new_coords)
-      redirect '/game/new/player2'
-    end
-
-    get '/game/new/player2' do
-      @username = session[:username]
-      @turn = $new_game.turn.name
-      @board_display2 = $new_game.player2.board.print_board
-      @opponent_display2 = $new_game.player1.board.print_opponent_board
-      erb :'game/player2'
-    end
 
     end
 
