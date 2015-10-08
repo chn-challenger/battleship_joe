@@ -87,14 +87,9 @@ module Battleships
         fired_position = params['position'].split(',').map{|x| x.to_i}
         p fired_position
         $new_game.shoots(fired_position);
-        # stuff = []
-        # params.each {|x| stuff << x }
-        # p stuff
-      # rescue Exception => e
-      #   return e.message
-      # end
-        redirect '/users/new'
-        # return "<root>hello</root>"
+
+        # redirect '/users/new'
+        Pusher['refresh'].trigger('fire', {})
 
 
     end

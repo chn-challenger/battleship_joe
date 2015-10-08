@@ -25,7 +25,7 @@ $(document).ready(function() {
       // console.log("success");
       // window.location.replace("/test1");
       // window.location.replace("/game/new");
-      location.reload();
+      // location.reload();
     },
     error: function(data) {
       // console.log(data)

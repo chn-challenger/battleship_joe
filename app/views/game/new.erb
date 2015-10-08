@@ -1,8 +1,25 @@
+<script type='text/javascript'>
+  //<![CDATA[
+    $(function() {
+      var pusher = new Pusher('de93a8d7bd72a9d93113');
+      var chatChannel = pusher.subscribe('refresh');
+
+      chatChannel.bind('fire', function(msg) {
+        location.reload();
+        // $('#console').prepend('<p>' + msg111.timestamp + ' <strong>' + msg111.nickname + '</strong>: ' + msg111.message + '</p>');
+      });
+
+    });
+  //]]>
+</script>
+
+
 <% if @username == @player1_name %>
   <p>You are <%= @player1_name %></p>
   <%= @board_display1 %>
   <%= @opponent_display1 %>
   <% if @turn == @username %>
+  <p>Your turn <%= @username %></p>
     <script src="/src/turn.js"></script>
   <% end %>
 <%else %>
@@ -10,6 +27,7 @@
   <%= @board_display2 %>
   <%= @opponent_display2 %>
   <% if @turn == @username %>
+  <p>Your turn <%= @username %></p>
     <script src="/src/turn.js"></script>
   <% end %>
 <% end %>

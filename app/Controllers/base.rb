@@ -1,6 +1,12 @@
 require 'sinatra/base'
 require 'sinatra/flash'
 require 'sinatra/partial'
+require 'json'
+require 'pusher'
+
+Pusher.app_id = '146746'
+Pusher.key = 'de93a8d7bd72a9d93113'
+Pusher.secret = '5047b2b1b8bf246b50ad'
 
 module Battleships
 
